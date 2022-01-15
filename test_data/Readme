@@ -1,2 +1,2 @@
 Here are the datasets used for debug, containing 10000 entries.
-dataclean is the procedure of cleaning raw data and slicing them into proper subsets.
+dataclean is the procedure of cleaning raw dataset and slicing it into proper subsets.
