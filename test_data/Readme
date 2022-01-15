@@ -1,1 +1,2 @@
-Here are the datasets used for debug, containing 10000 entries
+Here are the datasets used for debug, containing 10000 entries.
+dataclean is the procedure of cleaning raw data and slice to proper subsets.
