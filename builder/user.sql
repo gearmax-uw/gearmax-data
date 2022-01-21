@@ -11,7 +11,7 @@ create table if not exists user(
             is_franchise_dealer varchar(5)
             );
 
-load data infile '/tmp/ece651/debug/user.csv' ignore into table user
+load data infile 'test_data/user.csv' ignore into table user
 -- load data infile '/tmp/Car.csv' ignore into table car
     fields terminated by ','
     enclosed by '"'
