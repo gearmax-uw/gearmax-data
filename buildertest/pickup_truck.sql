@@ -10,10 +10,10 @@ create table if not exists pickup_truck(
             cabin varchar(12)
             );
 
--- load data infile 'test_data/pickup_truck.csv' ignore into table pickup_truck
--- -- load data infile '/tmp/Car.csv' ignore into table car
---     fields terminated by ','
---     enclosed by '"'
---     lines terminated by '\n'
---     ignore 1 lines 
+load data infile 'test_data/pickup_truck.csv' ignore into table pickup_truck
+-- load data infile '/tmp/Car.csv' ignore into table car
+    fields terminated by ','
+    enclosed by '"'
+    lines terminated by '\n'
+    ignore 1 lines 
 

@@ -1,6 +1,6 @@
-Drop Database if exists UsedCar;
-Create Database UsedCar;
-use UsedCar;
+Drop Database if exists UsedCarDebug;
+Create Database UsedCarDebug;
+use UsedCarDebug;
 source car.sql
 source depreciation_info.sql
 source user.sql
