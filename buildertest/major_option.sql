@@ -8,7 +8,7 @@ create table if not exists major_option(
             option varchar(40)
             );
 
-load data infile 'test_data/major_option.csv' ignore into table major_option
+load data infile 'test_data/mini_data/major_option.csv' ignore into table major_option
 -- load data infile '/tmp/Car.csv' ignore into table car
     fields terminated by ','
     enclosed by '"'

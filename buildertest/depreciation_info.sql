@@ -12,7 +12,7 @@ create table if not exists depreciation_info(
             theft_title boolean
             );
 
-load data infile 'test_data/depreciation_info.csv' ignore into table depreciation_info
+load data infile 'test_data/mini_data/depreciation_info.csv' ignore into table depreciation_info
 -- load data infile '/tmp/Car.csv' ignore into table car
     fields terminated by ','
     enclosed by '"'
