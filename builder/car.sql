@@ -17,6 +17,7 @@ create table if not exists car (
             model_name varchar(25), 
             body_type varchar(13), 
             maximum_seating int, 
+            listing_color varchar(20),
             interior_color varchar(50), 
             exterior_color varchar(50), 
             mileage float, 
