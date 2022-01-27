@@ -52,7 +52,7 @@ create table if not exists car (
 			-- index (owner_count)
 		  );
 
-load data infile 'test_data/Car.csv' ignore into table car
+load data infile 'test_data/car.csv' ignore into table car
 -- load data infile '/tmp/Car.csv' ignore into table car
     fields terminated by ','
     enclosed by '"'
