@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS pickup_truck;
+DROP TABLE IF EXISTS major_option;
 
 select '-----------------------------------------------------------------' as '';
 select 'Create major_option' as '';
