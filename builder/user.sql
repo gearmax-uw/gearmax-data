@@ -8,7 +8,7 @@ create table if not exists user(
             name varchar(128),
             email varchar(255),
             type varchar(10),
-            is_franchise_dealer varchar(5)
+            is_franchise_dealer boolean
             );
 
 load data infile 'test_data/user.csv' ignore into table user
@@ -17,4 +17,6 @@ load data infile 'test_data/user.csv' ignore into table user
     enclosed by '"'
     lines terminated by '\n'
     ignore 1 lines 
+    (id, name, email, type, @is_franchise_dealer)
+    set is_franchise_dealer = (@is_franchise_dealer = 'True');
 
