@@ -46,7 +46,20 @@ create table if not exists car (
             main_picture_url varchar(167), 
             owner_count int, 
             seller_rating float, 
-            trim_name varchar(81) 
+            trim_name varchar(81),
+            index (is_depreciated),
+            index (seller_id),
+            index (country),
+            index (price),
+            index (year),
+            index (make_name),
+            index (body_type),
+            index (maximum_seating),
+            index (listing_color),
+            index (is_new),
+            index (listed_date),
+            index (owner_count),
+            index (seller_rating)
 			-- index (body_type),
 			-- index (price),
 			-- index (owner_count)

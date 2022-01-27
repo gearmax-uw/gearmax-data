@@ -8,7 +8,8 @@ create table if not exists user(
             name varchar(128),
             email varchar(255),
             type varchar(10),
-            is_franchise_dealer boolean
+            is_franchise_dealer boolean,
+            index (is_franchise_dealer)
             );
 
 load data infile 'test_data/user.csv' ignore into table user
