@@ -61,7 +61,7 @@ load data infile 'test_data/car.csv' ignore into table car
     (id, vin, is_depreciated, seller_id, zip, city, country, price, year, make_name, model_name, 
             body_type, maximum_seating, listing_color, interior_color, exterior_color, 
             mileage, length, width, height, wheelbase, front_legroom, back_legroom, engine_displacement, 
-            engine_type, transmission, transmission_display, wheel_system (3), wheel_system_display, 
+            engine_type, transmission, transmission_display, wheel_system, wheel_system_display, 
             horsepower, power_rpm, pound_foot, torque_rpm, fuel_tank_volume, fuel_type, city_fuel_economy, 
             highway_fuel_economy, @is_new, listed_date, main_picture_url, owner_count, seller_rating, trim_name)
     set is_new = (@is_new = 'True');
