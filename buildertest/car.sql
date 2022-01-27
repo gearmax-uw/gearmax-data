@@ -60,6 +60,7 @@ create table if not exists car (
         index (listed_date),
         index (owner_count),
         index (seller_rating)
+        -- is_depreciated, seller_id, country, price, year, make_name, body_type, maximum_seating, listing_color, is_new, listed_date, owner_count, seller_rating
 		  );
 
 load data infile 'test_data/mini_data/car.csv' ignore into table car
