@@ -1,4 +1,4 @@
-# gearmax-data
+# GearMax Data
 
 ### Database Schema Design
 
@@ -26,6 +26,15 @@ As developers, we require all columns listed below follow the specific data form
 - transmission_display
 - wheel_system
 - fuel_type
+
+### How to put data of Used Car Dataset to Elasticsearch?
+
+1. Make sure you have Elasticsearch service running locally. It can be Docker service or the installed Elasticsearch program.
+2. Make sure the port 9200 of ES is exposed.
+3. Go to the directory `gearmax-data/es/` and ensure that `used_cars_data.csv` locates in the same direcory. The dataset can be downloaded from [Kaggle US Used Dataset](https://www.kaggle.com/ananaymital/us-used-cars-dataset).
+4. run `python ingest_es_data.py` or `python3 ingest_es_data.py`, then all data will be saved to your ES server.
+
+**Note:** If you don't want to save all of the data from the csv file to your ES server, comment out `break` in `ingest_es_data.py`. Then only `bulk_size` (in our case, 50000) docs (rows in SQL) will be saved. 
 
 
 
