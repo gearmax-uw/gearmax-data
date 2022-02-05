@@ -1,4 +1,4 @@
-# GearMax Data
+# GearMax-Data
 
 ### Database Schema Design
 

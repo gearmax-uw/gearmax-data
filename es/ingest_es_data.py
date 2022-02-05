@@ -8,6 +8,8 @@ from elasticsearch import Elasticsearch, helpers
 
 es = Elasticsearch([{'host': 'localhost', 'port': 9200}])
 
+index_name = 'used-car'
+
 # es vs. db
 # index => db
 # type => table (depreciated in Elasticsearch 7.0+)
@@ -16,11 +18,12 @@ es = Elasticsearch([{'host': 'localhost', 'port': 9200}])
 
 # delete the previous index first
 if es.indices.exists(index = 'used-dar'):
+    print('index deleted')
     es.indices.delete(index = 'used-car')
 
 # create a index
 # index -> database
-es.indices.create(index='used-car', ignore=400)
+es.indices.create(index=index_name, ignore=400)
 
 # put mappings set up field types
 type_mapping = {
@@ -86,7 +89,7 @@ type_mapping = {
             "type": "keyword"
         },
         "major_options": {
-            "type": "text"
+            "type": "keyword"
         },
         "make_name": {
             "type": "keyword"
@@ -334,7 +337,7 @@ with open('used_cars_data.csv', 'r', encoding='UTF-8') as f:
         # res = es.index(index='used-car', id=doc_id, document=car_post)
 
         spec_action = {
-            "_index": "used-car",
+            "_index": index_name,
             "_id": doc_id,
             "_source": car_post
         }
@@ -347,11 +350,11 @@ with open('used_cars_data.csv', 'r', encoding='UTF-8') as f:
                 resp = helpers.bulk(
                     es,
                     actions,
-                    index = 'used-car'
+                    index = index_name
                 )
                 print ("helpers.bulk() RESPONSE:", json.dumps(resp, indent=4))
                 actions.clear()
-                # break
+                break
             except Exception as err:
                 print("Elasticsearch helpers.bulk() ERROR:", err)
 
@@ -363,7 +366,7 @@ if len(actions) > 0:
         resp = helpers.bulk(
             es,
             actions,
-            index = 'used-car'
+            index = index_name
         )
         print ("helpers.bulk() RESPONSE:", json.dumps(resp, indent=4))
         actions.clear()
