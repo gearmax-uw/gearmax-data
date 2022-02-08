@@ -3,6 +3,7 @@
 
 import csv
 import json
+from operator import index
 import time
 from elasticsearch import Elasticsearch, helpers
 
@@ -15,6 +16,8 @@ index_name = 'used-car'
 # type => table (depreciated in Elasticsearch 7.0+)
 # document => row 
 # field => column
+
+# delte mapping
 
 # delete the previous index first
 if es.indices.exists(index = 'used-dar'):
@@ -85,6 +88,9 @@ type_mapping = {
         "listed_date": {
             "type": "date"
         },
+        "listing_color": {
+            "type": "keyword"
+        },
         "main_picture_url": {
             "type": "keyword"
         },
@@ -152,7 +158,7 @@ type_mapping = {
 }
 
 # put field type mapping to es
-es.indices.put_mapping(body = type_mapping, index = 'used-car')
+es.indices.put_mapping(body = type_mapping, index = index_name)
 
 bulk_size = 50000
 
@@ -247,6 +253,7 @@ with open('used_cars_data.csv', 'r', encoding='UTF-8') as f:
         maximum_seating = int(d_maximum_seating) if d_maximum_seating else None # int
         
         listed_date = row['listed_date'].replace(' ', '') # str
+        listing_color = row['listing_color'].replace(' ', '') # str
         main_picture_url = row['main_picture_url'].replace(' ', '') # str
         is_new = True if row['is_new'] == '1' else False # bool
         zip = row['dealer_zip'].strip() # str
@@ -324,6 +331,7 @@ with open('used_cars_data.csv', 'r', encoding='UTF-8') as f:
             'width': width,
             'maximum_seating': maximum_seating,
             'listed_date': listed_date,
+            'listing_color': listing_color,
             'main_picture_url': main_picture_url,
             'is_new': is_new,
             'zip': zip,
