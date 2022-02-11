@@ -174,12 +174,90 @@ with open('used_cars_data.csv', 'r', encoding='UTF-8') as f:
     actions = []
 
     for row in d_reader:
+
+        # city = row['city'].strip() # str
+        temp = row['city'].strip().title() # str
+        temp = temp.replace(r'-', ' ', regex=True)
+        city = temp
+
+        # listing_color = row['listing_color'].replace(' ', '') # str
+        temp = row['listing_color'].title()
+        temp = temp.replace('Unknown', '')
+        temp = temp.replace(' ', '')
+        listing_color = temp
+
+        # body_type = row['body_type'].strip() # str
+        temp = row['body_type'].strip().title() # str
+        temp = temp.replace(r' ', '', regex=True) # remove ' ' in "SUV / crossover"
+        temp = temp.replace(r'[/]', ' ', regex=True) # remove '/' in "SUV / crossover"
+        body_type =  temp
+        
+        # make_name = row['make_name'].strip() # str
+        temp = row['make_name'].strip().title() # str
+        temp = temp.replace(r'-', ' ', regex=True)
+        make_name = temp
+
+        # model_name = row['model_name'].strip() # str
+        temp = row['model_name'].strip() # str
+        temp = temp.replace(r'-', '', regex=True)
+        model_name = temp
+
+        # transmission_display = row['transmission_display'].strip() # str
+        temp = row['transmission_display'].strip().title() # str
+        temp = temp.replace(r'-', ' ', regex=True)
+        transmission_display = temp
+
+        # wheel_system_display = row['wheel_system_display'].strip() # str
+        temp = row['wheel_system_display'].strip().title() # str
+        temp = temp.replace(r'-', ' ', regex=True)
+        temp = temp.replace(r'4X2', '4x2', regex=True)
+        wheel_system_display = temp
+
+        # fuel_type = row['fuel_type'].strip() # str
+        temp = row['fuel_type'].strip().titel() # str
+        temp = temp.replace(r'-', ' ', regex=True)
+        temp = temp.replace('None', '')
+        temp = temp.replace(r' [/] ', '/', regex=True)
+        temp = temp.replace(r' [,] ', '/', regex=True)
+        fuel_type = temp
+
+        # exterior_color = row['exterior_color'].strip() # str
+        temp = row['exterior_color'].strip().title() # str
+        temp = temp.replace(r'-', ' ', regex=True)
+        temp = temp.replace('None', '')
+        exterior_color = temp
+
+        # interior_color = row['interior_color'].strip() # str
+        temp = row['interior_color'].strip().title() # str
+        temp = temp.replace(r'-', ' ', regex=True)
+        temp = temp.replace('None', '')
+        temp = temp.replace(r' [/] ', '/', regex=True)
+        temp = temp.replace(r' [,] ', '/', regex=True)
+        interior_color = temp
+
+        # rename columns
+        # car = car.rename(columns={'sp_id': 'seller_id', 'dealer_zip': 'zip', 'power': 'power_rpm', 'torque': 'torque_rpm'})
+
+        # Extract power_rpm
+        # power = row['power'].strip() # str
+        temp = row['power'].replace(r'.*hp', '', regex=True)
+        temp = temp.replace(r'.*@ ', '', regex=True)
+        temp = temp.replace(r' RPM', '', regex=True)
+        temp = temp.replace(r',', '', regex=True)
+        # temp = temp.replace(r'', np.nan, regex=True)
+        temp = temp.astype('float')
+        power_rpm = temp
+
+        # add torque
+        # torque = row['torque'].strip() # str
+        temp = row['torque'].strip().replace(r' lb.*', '', regex=True)
+        temp = temp.astype('float')
+        pound_foot = temp
+
         # todo: clean/deal with data first
         id = int(doc_id) # int 
         vin = row['vin'].replace(' ', '')  # str 
 
-        make_name = row['make_name'].strip() # str
-        model_name = row['model_name'].strip() # str
         
         # if price is null or empty in csv, store null in es (in Python, just assign it None)
         # if not None, store it as int
@@ -193,20 +271,13 @@ with open('used_cars_data.csv', 'r', encoding='UTF-8') as f:
         d_mileage = row['mileage'].replace(' ', '')
         mileage = int(float(d_mileage)) if d_mileage else None # int
 
-        body_type = row['body_type'].strip() # str
-        exterior_color = row['exterior_color'].strip() # str
-        interior_color = row['interior_color'].strip() # str
         engine_type = row['engine_type'].strip() # str
         
         d_engine_displacement = row['engine_displacement'].replace(' ', '')
         engine_displacement = int(float(d_engine_displacement)) if d_engine_displacement else None # int
 
-        torque = row['torque'].strip() # str
-        power = row['power'].strip() # str
         transmission = row['transmission'].strip() # str
-        transmission_display = row['transmission_display'].strip() # str
         wheel_system = row['wheel_system'].strip() # str
-        wheel_system_display = row['wheel_system_display'].strip() # str
         
         d_wheelbase = row['wheelbase'].replace(' ', '').replace('in', '').replace('-', '')
         wheelbase = float(d_wheelbase) if d_wheelbase else None # float
@@ -220,7 +291,6 @@ with open('used_cars_data.csv', 'r', encoding='UTF-8') as f:
         d_fuel_tank_volume = row['fuel_tank_volume'].replace(' ', '').replace('gal', '').replace('-', '')
         fuel_tank_volume = float(d_fuel_tank_volume) if d_fuel_tank_volume else None # float
 
-        fuel_type = row['fuel_type'].strip() # str
         
         d_seller_rating = row['seller_rating'].replace(' ', '')
         seller_rating = float(d_seller_rating) if d_seller_rating else None # float
@@ -253,11 +323,9 @@ with open('used_cars_data.csv', 'r', encoding='UTF-8') as f:
         maximum_seating = int(d_maximum_seating) if d_maximum_seating else None # int
         
         listed_date = row['listed_date'].replace(' ', '') # str
-        listing_color = row['listing_color'].replace(' ', '') # str
         main_picture_url = row['main_picture_url'].replace(' ', '') # str
         is_new = True if row['is_new'] == '1' else False # bool
         zip = row['dealer_zip'].strip() # str
-        city = row['city'].strip() # str
         country = 'US'
 
         # make major_options a list, es will convert it to Array type when saving it
