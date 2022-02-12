@@ -17,12 +17,11 @@ index_name = 'used-car'
 # document => row 
 # field => column
 
-# delte mapping
-
 # delete the previous index first
-if es.indices.exists(index = 'used-dar'):
+if es.indices.exists(index = index_name):
     print('index deleted')
-    es.indices.delete(index = 'used-car')
+    es.indices.delete(index = index_name)
+
 
 # create a index
 # index -> database
@@ -41,7 +40,12 @@ type_mapping = {
             "type": "keyword"
         },
         "city": {
-            "type": "keyword"
+            "type": "text",
+            "fields": {
+                "keyword": { 
+                    "type": "keyword"
+                }
+            }
         },
         "city_fuel_economy": {
             "type": "integer"
