@@ -243,20 +243,20 @@ with open('used_cars_data.csv', 'r', encoding='UTF-8') as f:
         # car = car.rename(columns={'sp_id': 'seller_id', 'dealer_zip': 'zip', 'power': 'power_rpm', 'torque': 'torque_rpm'})
 
         # Extract power_rpm
-        # power = row['power'].strip() # str
-        temp = row['power'].replace(r'.*hp', '', regex=True)
-        temp = temp.replace(r'.*@ ', '', regex=True)
-        temp = temp.replace(r' RPM', '', regex=True)
-        temp = temp.replace(r',', '', regex=True)
-        # temp = temp.replace(r'', np.nan, regex=True)
-        temp = temp.astype('float')
-        power_rpm = temp
+        power = row['power'].strip() # str
+        # temp = row['power'].replace(r'.*hp', '', regex=True)
+        # temp = temp.replace(r'.*@ ', '', regex=True)
+        # temp = temp.replace(r' RPM', '', regex=True)
+        # temp = temp.replace(r',', '', regex=True)
+        # # temp = temp.replace(r'', np.nan, regex=True)
+        # temp = temp.astype('float')
+        # power_rpm = temp
 
         # add torque
-        # torque = row['torque'].strip() # str
-        temp = row['torque'].strip().replace(r' lb.*', '', regex=True)
-        temp = temp.astype('float')
-        pound_foot = temp
+        torque = row['torque'].strip() # str
+        # temp = row['torque'].strip().replace(r' lb.*', '', regex=True)
+        # temp = temp.astype('float')
+        # pound_foot = temp
 
         # todo: clean/deal with data first
         id = int(doc_id) # int 
