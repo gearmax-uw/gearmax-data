@@ -37,7 +37,12 @@ type_mapping = {
             "type": "double"
         },
         "body_type": {
-            "type": "keyword"
+            "type": "text",
+            "fields": {
+                "keyword": { 
+                    "type": "keyword"
+                }
+            }
         },
         "city": {
             "type": "text",
@@ -51,7 +56,12 @@ type_mapping = {
             "type": "integer"
         },
         "country": {
-            "type": "keyword"
+            "type": "text",
+            "fields": {
+                "keyword": { 
+                    "type": "keyword"
+                }
+            }
         },
         "engine_displacement": {
             "type": "integer"
@@ -69,7 +79,12 @@ type_mapping = {
             "type": "double",
         },
         "fuel_type": {
-            "type": "keyword"
+            "type": "text",
+            "fields": {
+                "keyword": { 
+                    "type": "keyword"
+                }
+            }
         },
         "height": {
             "type": "double"
@@ -99,10 +114,20 @@ type_mapping = {
             "type": "keyword"
         },
         "major_options": {
-            "type": "keyword"
+            "type": "text",
+            "fields": {
+                "keyword": { 
+                    "type": "keyword"
+                }
+            }
         },
         "make_name": {
-            "type": "keyword"
+            "type": "text",
+            "fields": {
+                "keyword": { 
+                    "type": "keyword"
+                }
+            }
         },
         "maximum_seating": {
             "type": "integer"
@@ -111,7 +136,12 @@ type_mapping = {
             "type": "integer"
         },
         "model_name": {
-            "type": "keyword"
+            "type": "text",
+            "fields": {
+                "keyword": { 
+                    "type": "keyword"
+                }
+            }
         },
         "owner_count": {
             "type": "integer"
@@ -135,7 +165,12 @@ type_mapping = {
             "type": "keyword"
         },
         "trim_name": {
-            "type": "keyword"
+            "type": "text",
+            "fields": {
+                "keyword": { 
+                    "type": "keyword"
+                }
+            }
         },
         "vin": {
             "type": "keyword"
@@ -181,7 +216,7 @@ with open('used_cars_data.csv', 'r', encoding='UTF-8') as f:
 
         # city = row['city'].strip() # str
         temp = row['city'].strip().title() # str
-        temp = temp.replace(r'-', ' ', regex=True)
+        temp = temp.replace(r'-', ' ')
         city = temp
 
         # listing_color = row['listing_color'].replace(' ', '') # str
@@ -192,51 +227,51 @@ with open('used_cars_data.csv', 'r', encoding='UTF-8') as f:
 
         # body_type = row['body_type'].strip() # str
         temp = row['body_type'].strip().title() # str
-        temp = temp.replace(r' ', '', regex=True) # remove ' ' in "SUV / crossover"
-        temp = temp.replace(r'[/]', ' ', regex=True) # remove '/' in "SUV / crossover"
+        temp = temp.replace(r' ', '') # remove ' ' in "SUV / crossover"
+        temp = temp.replace(r'[/]', ' ') # remove '/' in "SUV / crossover"
         body_type =  temp
         
         # make_name = row['make_name'].strip() # str
         temp = row['make_name'].strip().title() # str
-        temp = temp.replace(r'-', ' ', regex=True)
+        temp = temp.replace(r'-', ' ')
         make_name = temp
 
         # model_name = row['model_name'].strip() # str
         temp = row['model_name'].strip() # str
-        temp = temp.replace(r'-', '', regex=True)
+        temp = temp.replace(r'-', '')
         model_name = temp
 
         # transmission_display = row['transmission_display'].strip() # str
         temp = row['transmission_display'].strip().title() # str
-        temp = temp.replace(r'-', ' ', regex=True)
+        temp = temp.replace(r'-', ' ')
         transmission_display = temp
 
         # wheel_system_display = row['wheel_system_display'].strip() # str
         temp = row['wheel_system_display'].strip().title() # str
-        temp = temp.replace(r'-', ' ', regex=True)
-        temp = temp.replace(r'4X2', '4x2', regex=True)
+        temp = temp.replace(r'-', ' ')
+        temp = temp.replace(r'4X2', '4x2')
         wheel_system_display = temp
 
         # fuel_type = row['fuel_type'].strip() # str
-        temp = row['fuel_type'].strip().titel() # str
-        temp = temp.replace(r'-', ' ', regex=True)
+        temp = row['fuel_type'].strip().title() # str
+        temp = temp.replace(r'-', ' ')
         temp = temp.replace('None', '')
-        temp = temp.replace(r' [/] ', '/', regex=True)
-        temp = temp.replace(r' [,] ', '/', regex=True)
+        temp = temp.replace(r' [/] ', '/')
+        temp = temp.replace(r' [,] ', '/')
         fuel_type = temp
 
         # exterior_color = row['exterior_color'].strip() # str
         temp = row['exterior_color'].strip().title() # str
-        temp = temp.replace(r'-', ' ', regex=True)
+        temp = temp.replace(r'-', ' ')
         temp = temp.replace('None', '')
         exterior_color = temp
 
         # interior_color = row['interior_color'].strip() # str
         temp = row['interior_color'].strip().title() # str
-        temp = temp.replace(r'-', ' ', regex=True)
+        temp = temp.replace(r'-', ' ')
         temp = temp.replace('None', '')
-        temp = temp.replace(r' [/] ', '/', regex=True)
-        temp = temp.replace(r' [,] ', '/', regex=True)
+        temp = temp.replace(r' [/] ', '/')
+        temp = temp.replace(r' [,] ', '/')
         interior_color = temp
 
         # rename columns
