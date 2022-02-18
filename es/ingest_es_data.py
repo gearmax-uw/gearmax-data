@@ -17,11 +17,12 @@ index_name = 'used-car'
 # document => row 
 # field => column
 
-# delete the previous index first
-if es.indices.exists(index = index_name):
-    print('index deleted')
-    es.indices.delete(index = index_name)
+# delte mapping
 
+# delete the previous index first
+if es.indices.exists(index = 'used-car'):
+    print('index deleted')
+    es.indices.delete(index = 'used-car')
 
 # create a index
 # index -> database
@@ -37,12 +38,7 @@ type_mapping = {
             "type": "double"
         },
         "body_type": {
-            "type": "text",
-            "fields": {
-                "keyword": { 
-                    "type": "keyword"
-                }
-            }
+            "type": "keyword"
         },
         "city": {
             "type": "text",
@@ -56,12 +52,7 @@ type_mapping = {
             "type": "integer"
         },
         "country": {
-            "type": "text",
-            "fields": {
-                "keyword": { 
-                    "type": "keyword"
-                }
-            }
+            "type": "keyword"
         },
         "engine_displacement": {
             "type": "integer"
@@ -79,12 +70,7 @@ type_mapping = {
             "type": "double",
         },
         "fuel_type": {
-            "type": "text",
-            "fields": {
-                "keyword": { 
-                    "type": "keyword"
-                }
-            }
+            "type": "keyword"
         },
         "height": {
             "type": "double"
@@ -114,20 +100,10 @@ type_mapping = {
             "type": "keyword"
         },
         "major_options": {
-            "type": "text",
-            "fields": {
-                "keyword": { 
-                    "type": "keyword"
-                }
-            }
+            "type": "keyword"
         },
         "make_name": {
-            "type": "text",
-            "fields": {
-                "keyword": { 
-                    "type": "keyword"
-                }
-            }
+            "type": "keyword"
         },
         "maximum_seating": {
             "type": "integer"
@@ -136,12 +112,7 @@ type_mapping = {
             "type": "integer"
         },
         "model_name": {
-            "type": "text",
-            "fields": {
-                "keyword": { 
-                    "type": "keyword"
-                }
-            }
+            "type": "keyword"
         },
         "owner_count": {
             "type": "integer"
@@ -165,12 +136,7 @@ type_mapping = {
             "type": "keyword"
         },
         "trim_name": {
-            "type": "text",
-            "fields": {
-                "keyword": { 
-                    "type": "keyword"
-                }
-            }
+            "type": "keyword"
         },
         "vin": {
             "type": "keyword"
@@ -213,90 +179,11 @@ with open('used_cars_data.csv', 'r', encoding='UTF-8') as f:
     actions = []
 
     for row in d_reader:
-
-        # city = row['city'].strip() # str
-        temp = row['city'].strip().title() # str
-        temp = temp.replace(r'-', ' ')
-        city = temp
-
-        # listing_color = row['listing_color'].replace(' ', '') # str
-        temp = row['listing_color'].title()
-        temp = temp.replace('Unknown', '')
-        temp = temp.replace(' ', '')
-        listing_color = temp
-
-        # body_type = row['body_type'].strip() # str
-        temp = row['body_type'].strip().title() # str
-        temp = temp.replace(r' ', '') # remove ' ' in "SUV / crossover"
-        temp = temp.replace(r'[/]', ' ') # remove '/' in "SUV / crossover"
-        body_type =  temp
-        
-        # make_name = row['make_name'].strip() # str
-        temp = row['make_name'].strip().title() # str
-        temp = temp.replace(r'-', ' ')
-        make_name = temp
-
-        # model_name = row['model_name'].strip() # str
-        temp = row['model_name'].strip() # str
-        temp = temp.replace(r'-', '')
-        model_name = temp
-
-        # transmission_display = row['transmission_display'].strip() # str
-        temp = row['transmission_display'].strip().title() # str
-        temp = temp.replace(r'-', ' ')
-        transmission_display = temp
-
-        # wheel_system_display = row['wheel_system_display'].strip() # str
-        temp = row['wheel_system_display'].strip().title() # str
-        temp = temp.replace(r'-', ' ')
-        temp = temp.replace(r'4X2', '4x2')
-        wheel_system_display = temp
-
-        # fuel_type = row['fuel_type'].strip() # str
-        temp = row['fuel_type'].strip().title() # str
-        temp = temp.replace(r'-', ' ')
-        temp = temp.replace('None', '')
-        temp = temp.replace(r' [/] ', '/')
-        temp = temp.replace(r' [,] ', '/')
-        fuel_type = temp
-
-        # exterior_color = row['exterior_color'].strip() # str
-        temp = row['exterior_color'].strip().title() # str
-        temp = temp.replace(r'-', ' ')
-        temp = temp.replace('None', '')
-        exterior_color = temp
-
-        # interior_color = row['interior_color'].strip() # str
-        temp = row['interior_color'].strip().title() # str
-        temp = temp.replace(r'-', ' ')
-        temp = temp.replace('None', '')
-        temp = temp.replace(r' [/] ', '/')
-        temp = temp.replace(r' [,] ', '/')
-        interior_color = temp
-
-        # rename columns
-        # car = car.rename(columns={'sp_id': 'seller_id', 'dealer_zip': 'zip', 'power': 'power_rpm', 'torque': 'torque_rpm'})
-
-        # Extract power_rpm
-        power = row['power'].strip() # str
-        # temp = row['power'].replace(r'.*hp', '', regex=True)
-        # temp = temp.replace(r'.*@ ', '', regex=True)
-        # temp = temp.replace(r' RPM', '', regex=True)
-        # temp = temp.replace(r',', '', regex=True)
-        # # temp = temp.replace(r'', np.nan, regex=True)
-        # temp = temp.astype('float')
-        # power_rpm = temp
-
-        # add torque
-        torque = row['torque'].strip() # str
-        # temp = row['torque'].strip().replace(r' lb.*', '', regex=True)
-        # temp = temp.astype('float')
-        # pound_foot = temp
-
-        # todo: clean/deal with data first
         id = int(doc_id) # int 
         vin = row['vin'].replace(' ', '')  # str 
 
+        make_name = row['make_name'].title().strip().replace('-', ' ') # str
+        model_name = row['model_name'].title().strip().replace('-', ' ') # str
         
         # if price is null or empty in csv, store null in es (in Python, just assign it None)
         # if not None, store it as int
@@ -306,17 +193,23 @@ with open('used_cars_data.csv', 'r', encoding='UTF-8') as f:
         d_year = row['year'].replace(' ', '')
         year = int(d_year) if d_year else None # int
 
-
         d_mileage = row['mileage'].replace(' ', '')
         mileage = int(float(d_mileage)) if d_mileage else None # int
 
+        body_type = row['body_type'].title().replace(' ', '').replace('/', ' ') # str
+        exterior_color = row['exterior_color'].title().strip().replace('-', ' ').replace('None', '') # str
+        interior_color = row['interior_color'].title().strip().replace('-', ' ').replace('None', '') # str
         engine_type = row['engine_type'].strip() # str
         
         d_engine_displacement = row['engine_displacement'].replace(' ', '')
         engine_displacement = int(float(d_engine_displacement)) if d_engine_displacement else None # int
 
-        transmission = row['transmission'].strip() # str
+        torque = row['torque'].strip() # str
+        power = row['power'].strip() # str
+        transmission = row['transmission'].title().strip().replace('-', ' ') # str
+        transmission_display = row['transmission_display'].title().strip() # str
         wheel_system = row['wheel_system'].strip() # str
+        wheel_system_display = row['wheel_system_display'].title().strip().replace('-', ' ').replace('4X2', '4x2') # str
         
         d_wheelbase = row['wheelbase'].replace(' ', '').replace('in', '').replace('-', '')
         wheelbase = float(d_wheelbase) if d_wheelbase else None # float
@@ -330,6 +223,7 @@ with open('used_cars_data.csv', 'r', encoding='UTF-8') as f:
         d_fuel_tank_volume = row['fuel_tank_volume'].replace(' ', '').replace('gal', '').replace('-', '')
         fuel_tank_volume = float(d_fuel_tank_volume) if d_fuel_tank_volume else None # float
 
+        fuel_type = row['fuel_type'].title().strip() # str
         
         d_seller_rating = row['seller_rating'].replace(' ', '')
         seller_rating = float(d_seller_rating) if d_seller_rating else None # float
@@ -362,9 +256,11 @@ with open('used_cars_data.csv', 'r', encoding='UTF-8') as f:
         maximum_seating = int(d_maximum_seating) if d_maximum_seating else None # int
         
         listed_date = row['listed_date'].replace(' ', '') # str
+        listing_color = row['listing_color'].title().replace(' ', '').replace('Unknown', '') # str
         main_picture_url = row['main_picture_url'].replace(' ', '') # str
         is_new = True if row['is_new'] == '1' else False # bool
         zip = row['dealer_zip'].strip() # str
+        city = row['city'].title().replace('-', '').strip() # str
         country = 'US'
 
         # make major_options a list, es will convert it to Array type when saving it
@@ -374,34 +270,6 @@ with open('used_cars_data.csv', 'r', encoding='UTF-8') as f:
         is_depreciated = False
         if row['frame_damaged'] == '1' or row['has_accidents']  == '1' or row['salvage'] == '1' or row['isCab'] == '1' or row['theft_title'] == '1':
             is_depreciated = True
-
-        # seller info
-        # seller_info = {}
-        # seller_info['id'] = row['sp_id'].replace(' ', '')
-        # seller_info['name'] = row['sp_name'].strip()
-        # seller_info['email'] = 
-        # seller_info['is_franchise_dealer'] = True if row['franchise_dealer'] == '1' else False
-
-        # depreciation info
-        # depreciation_info = None
-        # if row['frame_damaged'] == '1' or row['has_accidents']  == '1' or row['salvage'] == '1' or row['isCab'] == '1' or row['theft_title'] == '1':
-        #     depreciation_info = {}
-        #     depreciation_info['is_frame_damaged'] = True if row['frame_damaged'] == '1' else False
-        #     depreciation_info['has_accidents'] = True if row['has_accidents'] == '1' else False
-        #     depreciation_info['is_salvaged'] = True if row['salvage'] == '1' else False
-        #     depreciation_info['is_cab'] = True if row['isCab'] == '1' else False
-        #     depreciation_info['is_theft_title'] = True if row['theft_title'] == '1' else False
-
-        # pickup truck info
-        # bed = row['bed'].replace(' ', '')
-        # bed_length = row['bed_length'].replace(' ', '').replace('in', '').replace('-', '')
-        # cabin = row['cabin'].replace(' ', '')
-        # pickup_truck_info = None
-        # if body_type == 'Pickup Truck':
-        #     pickup_truck_info = {}
-        #     pickup_truck_info['bed'] = bed
-        #     pickup_truck_info['bed_length'] = bed_length
-        #     pickup_truck_info['cabin'] = cabin
 
         # make a document to be put in es
         car_post = {
