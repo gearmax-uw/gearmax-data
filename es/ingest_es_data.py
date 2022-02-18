@@ -3,8 +3,8 @@
 
 import csv
 import json
-from operator import index
 import time
+import requests
 from elasticsearch import Elasticsearch, helpers
 
 es = Elasticsearch([{'host': 'localhost', 'port': 9200}])
@@ -22,7 +22,8 @@ index_name = 'used-car'
 # delete the previous index first
 if es.indices.exists(index = 'used-car'):
     print('index deleted')
-    es.indices.delete(index = 'used-car')
+    # es.indices.delete(index = 'used-car')
+    requests.delete(url="http://localhost:9200/used-car")
 
 # create a index
 # index -> database
@@ -38,7 +39,12 @@ type_mapping = {
             "type": "double"
         },
         "body_type": {
-            "type": "keyword"
+            "type": "text",
+            "fields": {
+                "keyword": { 
+                    "type": "keyword"
+                }
+            }
         },
         "city": {
             "type": "text",
@@ -61,7 +67,12 @@ type_mapping = {
             "type": "keyword"
         },
         "exterior_color": {
-            "type": "keyword"
+            "type": "text",
+            "fields": {
+                "keyword": { 
+                    "type": "keyword"
+                }
+            }
         },
         "front_legroom": {
             "type": "double",
@@ -70,7 +81,12 @@ type_mapping = {
             "type": "double",
         },
         "fuel_type": {
-            "type": "keyword"
+            "type": "text",
+            "fields": {
+                "keyword": { 
+                    "type": "keyword"
+                }
+            }
         },
         "height": {
             "type": "double"
@@ -79,7 +95,12 @@ type_mapping = {
             "type": "integer"
         },
         "interior_color": {
-            "type": "keyword"
+            "type": "text",
+            "fields": {
+                "keyword": { 
+                    "type": "keyword"
+                }
+            }
         },
         "is_depreciated": {
             "type": "boolean"
@@ -94,16 +115,31 @@ type_mapping = {
             "type": "date"
         },
         "listing_color": {
-            "type": "keyword"
+            "type": "text",
+            "fields": {
+                "keyword": { 
+                    "type": "keyword"
+                }
+            }
         },
         "main_picture_url": {
             "type": "keyword"
         },
         "major_options": {
-            "type": "keyword"
+            "type": "text",
+            "fields": {
+                "keyword": { 
+                    "type": "keyword"
+                }
+            }
         },
         "make_name": {
-            "type": "keyword"
+            "type": "text",
+            "fields": {
+                "keyword": { 
+                    "type": "keyword"
+                }
+            }
         },
         "maximum_seating": {
             "type": "integer"
@@ -112,7 +148,12 @@ type_mapping = {
             "type": "integer"
         },
         "model_name": {
-            "type": "keyword"
+            "type": "text",
+            "fields": {
+                "keyword": { 
+                    "type": "keyword"
+                }
+            }
         },
         "owner_count": {
             "type": "integer"
@@ -133,10 +174,20 @@ type_mapping = {
             "type": "keyword"
         },
         "transmission_display": {
-            "type": "keyword"
+            "type": "text",
+            "fields": {
+                "keyword": { 
+                    "type": "keyword"
+                }
+            }
         },
         "trim_name": {
-            "type": "keyword"
+            "type": "text",
+            "fields": {
+                "keyword": { 
+                    "type": "keyword"
+                }
+            }
         },
         "vin": {
             "type": "keyword"
@@ -145,7 +196,12 @@ type_mapping = {
             "type": "keyword"
         },
         "wheel_system_display": {
-            "type": "keyword"
+            "type": "text",
+            "fields": {
+                "keyword": { 
+                    "type": "keyword"
+                }
+            }
         },
         "wheelbase": {
             "type": "double"
@@ -157,7 +213,12 @@ type_mapping = {
             "type": "integer"
         },
         "zip": {
-            "type": "keyword"
+            "type": "text",
+            "fields": {
+                "keyword": { 
+                    "type": "keyword"
+                }
+            }
         }
     }
 }
@@ -264,12 +325,17 @@ with open('used_cars_data.csv', 'r', encoding='UTF-8') as f:
         country = 'US'
 
         # make major_options a list, es will convert it to Array type when saving it
-        major_options = row['major_options'].replace('[', '').replace(']', '').replace('"', '').replace('\'', '').strip().split(",")
-        major_options = [x.strip(' ') for x in major_options]
+        d_major_options = row['major_options'].replace('[', '').replace(']', '').replace('"', '').replace('\'', '').strip().split(",")
+        major_options = [x.strip(' ') for x in d_major_options]
 
         is_depreciated = False
         if row['frame_damaged'] == '1' or row['has_accidents']  == '1' or row['salvage'] == '1' or row['isCab'] == '1' or row['theft_title'] == '1':
             is_depreciated = True
+
+        # desc = (make_name + ' ' + model_name + ' ' + body_type + ' ' + listing_color + ' ' + exterior_color + ' ' + interior_color + ' '
+        #     + engine_type + ' ' + transmission_display + ' ' + wheel_system + ' ' + wheel_system_display + ' ' + fuel_type + ' '
+        #     + trim_name + ' ' + city + ' ' + country + ' ' + zip + ' ' + ' '.join([str(option) for option in d_major_options]))
+          
 
         # make a document to be put in es
         car_post = {
