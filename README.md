@@ -187,5 +187,3 @@ As developers, we require all columns listed below follow the specific data form
 4. run `python ingest_es_data.py` or `python3 ingest_es_data.py`, then all data will be saved to your ES server.
 
 **Note:** If you don't want to save all of the data from the csv file to your ES server, comment out `break` in `ingest_es_data.py`. Then only `bulk_size` (in our case, 50000) docs (rows in SQL) will be saved. 
-
-
