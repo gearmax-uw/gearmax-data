@@ -32,5 +32,34 @@ def predict_car_price():
         color = data['color']
         isNew = data['isNew']
 
-        print('make={}'.format(make))
+        teststr = """
+        make = {};
+        model = {};
+        body = {};
+        fuel = {};
+        transmission = {};
+        power = {};
+        displacement = {};
+        engine = {};
+        torquePower = {};
+        torqueRpm = {};
+        powerRpm = {};
+        wheelSystem = {};
+        gear = {};
+        year = {};
+        tank = {};
+        cityFuelEconomy = {};
+        highwayFuelEconomy = {};
+        seat = {};
+        color = {};
+        isNew = {};
+        """.format(make, model, body, fuel, transmission, 
+        power, displacement, engine, torquePower, torqueRpm, 
+        powerRpm, wheelSystem, gear, year, tank, cityFuelEconomy, 
+        highwayFuelEconomy, seat, color, isNew);
+
+        print(teststr)
+
+        # todo: replace the returned value with the predicted price
+        # wrap it from numerical to string
         return "15000"
