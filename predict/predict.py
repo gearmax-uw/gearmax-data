@@ -86,31 +86,31 @@ def predict_car_price():
         var_dic["highway_fuel_economy"] = highwayFuelEconomy
         var_dic["maximum_seating"] = seat
 
-        teststr = """
-        make = {};
-        model = {};
-        body = {};
-        fuel = {};
-        transmission = {};
-        power = {};
-        displacement = {};
-        engine = {};
-        torquePower = {};
-        torqueRpm = {};
-        powerRpm = {};
-        wheelSystem = {};
-        gear = {};
-        year = {};
-        tank = {};
-        cityFuelEconomy = {};
-        highwayFuelEconomy = {};
-        seat = {};
-        color = {};
-        isNew = {};
-        """.format(make, model, body, fuel, transmission,
-        power, displacement, engine, torquePower, torqueRpm,
-        powerRpm, wheelSystem, gear, year, tank, cityFuelEconomy,
-        highwayFuelEconomy, seat, color, isNew);
+        # teststr = """
+        # make = {};
+        # model = {};
+        # body = {};
+        # fuel = {};
+        # transmission = {};
+        # power = {};
+        # displacement = {};
+        # engine = {};
+        # torquePower = {};
+        # torqueRpm = {};
+        # powerRpm = {};
+        # wheelSystem = {};
+        # gear = {};
+        # year = {};
+        # tank = {};
+        # cityFuelEconomy = {};
+        # highwayFuelEconomy = {};
+        # seat = {};
+        # color = {};
+        # isNew = {};
+        # """.format(make, model, body, fuel, transmission,
+        # power, displacement, engine, torquePower, torqueRpm,
+        # powerRpm, wheelSystem, gear, year, tank, cityFuelEconomy,
+        # highwayFuelEconomy, seat, color, isNew)
        
         # myList = [make, model, body, fuel, transmission, power, displacement, engine, torquePower, torqueRpm, powerRpm, wheelSystem, transmission, year, tank, cityFuelEconomy, highwayFuelEconomy, seat]
 
@@ -119,7 +119,7 @@ def predict_car_price():
 
         price = myModel.predict(car_specs)
 
-        print(price)
+        print(str(price))
 
         # todo: replace the returned value with the predicted price
         # wrap it from numerical to string
