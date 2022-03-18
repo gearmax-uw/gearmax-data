@@ -17,6 +17,7 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 @app.route("/car/predict", methods=['GET', 'POST'])
 @cross_origin()
 def predict_car_price():
+    print('ok')
     var_dic = {}
     if request.method == 'POST':
 
@@ -87,32 +88,34 @@ def predict_car_price():
         var_dic["highway_fuel_economy"] = highwayFuelEconomy
         var_dic["maximum_seating"] = seat
 
-        # teststr = """
-        # make = {};
-        # model = {};
-        # body = {};
-        # fuel = {};
-        # transmission = {};
-        # power = {};
-        # displacement = {};
-        # engine = {};
-        # torquePower = {};
-        # torqueRpm = {};
-        # powerRpm = {};
-        # wheelSystem = {};
-        # gear = {};
-        # year = {};
-        # tank = {};
-        # cityFuelEconomy = {};
-        # highwayFuelEconomy = {};
-        # seat = {};
-        # color = {};
-        # isNew = {};
-        # """.format(make, model, body, fuel, transmission,
-        # power, displacement, engine, torquePower, torqueRpm,
-        # powerRpm, wheelSystem, gear, year, tank, cityFuelEconomy,
-        # highwayFuelEconomy, seat, color, isNew)
-       
+        teststr = """
+        make = {};
+        model = {};
+        body = {};
+        fuel = {};
+        transmission = {};
+        power = {};
+        displacement = {};
+        engine = {};
+        torquePower = {};
+        torqueRpm = {};
+        powerRpm = {};
+        wheelSystem = {};
+        gear = {};
+        year = {};
+        tank = {};
+        cityFuelEconomy = {};
+        highwayFuelEconomy = {};
+        seat = {};
+        color = {};
+        isNew = {};
+        """.format(make, model, body, fuel, transmission,
+        power, displacement, engine, torquePower, torqueRpm,
+        powerRpm, wheelSystem, gear, year, tank, cityFuelEconomy,
+        highwayFuelEconomy, seat, color, isNew)
+
+
+        print(teststr)
         # myList = [make, model, body, fuel, transmission, power, displacement, engine, torquePower, torqueRpm, powerRpm, wheelSystem, transmission, year, tank, cityFuelEconomy, highwayFuelEconomy, seat]
 
 
