@@ -22,7 +22,8 @@ def predict_car_price():
     if request.method == 'POST':
 
 
-        #! mileage = form.cleaned_data.get('mileage')
+        # mileage = form.cleaned_data.get('mileage')
+        mileage = data['mileage']
 
         data = request.get_json()
         # make = form.cleaned_data.get('make')
@@ -34,8 +35,9 @@ def predict_car_price():
         # fuel_type = request.POST['fuel_type']
         fuel = data['fuel']
         # transmission = request.POST['transmission']
-        # transmission_display = request.POST['transmission_display']
         transmission = data['transmission']
+        # transmission_display = request.POST['transmission_display']
+        gear = data['gear']
         # horsepower = request.POST['horsepower']
         power = data['power']
         # engine_displacement = request.POST['displacement']
@@ -50,7 +52,6 @@ def predict_car_price():
         powerRpm = data['powerRpm']
         # wheel_system = request.POST['wheel_system']
         wheelSystem = data['wheelSystem']
-        gear = data['gear']
         # year = request.POST['year']
         year = data['year']
         # fuel_tank_volume = request.POST['fuel_tank_volume']
@@ -80,8 +81,8 @@ def predict_car_price():
         var_dic["torque_power"] = torquePower
         var_dic["horsepower"] = power
         var_dic["engine_displacement"] = displacement
-        var_dic["mileage"] = 10000
-        var_dic["transmission_display"] = transmission
+        var_dic["mileage"] = mileage
+        var_dic["transmission_display"] = gear
         var_dic["year"] = year
         var_dic["fuel_tank_volume"] = tank
         var_dic["city_fuel_economy"] = cityFuelEconomy
